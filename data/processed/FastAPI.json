@@ -1,0 +1,1004 @@
+[
+  {
+    "id": "FastAPI_0001",
+    "question": "What is FastAPI, and why is it used in AI/ML applications?",
+    "answer": "A Python framework for building fast, asynchronous APIs, ideal for serving ML models. python from fastapi import FastAPI app = FastAPI() @app.get(\"/\") async def root(): return {\"message\": \"Hello, FastAPI!\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0002",
+    "question": "How do you install FastAPI and its dependencies?",
+    "answer": "Uses pip to install FastAPI and Uvicorn. python Terminal command pip install fastapi uvicorn",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0003",
+    "question": "What is the role of Pydantic in FastAPI?",
+    "answer": "Validates and serializes data for API requests/responses. python from pydantic import BaseModel class Item(BaseModel): name: str price: float",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0004",
+    "question": "How do you run a FastAPI application?",
+    "answer": "Uses Uvicorn as the ASGI server. python Terminal command uvicorn main:app --reload",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0005",
+    "question": "How do you define a simple GET endpoint in FastAPI?",
+    "answer": "Uses decorators for routing. python from fastapi import FastAPI app = FastAPI() @app.get(\"/items/{itemid}\") async def readitem(itemid: int): return {\"itemid\": itemid}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0006",
+    "question": "How do you visualize API response times?",
+    "answer": "Plots latency metrics. python import matplotlib.pyplot as plt def plotresponsetimes(times): plt.plot(times) plt.savefig(\"responsetimes.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0007",
+    "question": "Write a function to create a POST endpoint with Pydantic validation.",
+    "answer": "Accepts and validates JSON data. python from fastapi import FastAPI from pydantic import BaseModel app = FastAPI() class Item(BaseModel): name: str price: float @app.post(\"/items/\") async def createitem(item: Item): return item",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0008",
+    "question": "How do you handle query parameters in FastAPI?",
+    "answer": "Defines optional parameters in endpoints. python from fastapi import FastAPI app = FastAPI() @app.get(\"/items/\") async def readitems(skip: int = 0, limit: int = 10): return {\"skip\": skip, \"limit\": limit}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0009",
+    "question": "Write a function to return custom responses in FastAPI.",
+    "answer": "Uses Response objects for status codes. python from fastapi import FastAPI, Response app = FastAPI() @app.get(\"/health\") async def healthcheck(): return Response(content=\"OK\", statuscode=200)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0010",
+    "question": "How do you implement path parameters with type hints?",
+    "answer": "Enforces data types for parameters. python from fastapi import FastAPI app = FastAPI() @app.get(\"/users/{userid}\") async def readuser(userid: str): return {\"userid\": userid}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0011",
+    "question": "Write a function to handle file uploads in FastAPI.",
+    "answer": "Processes uploaded files. python from fastapi import FastAPI, File, UploadFile app = FastAPI() @app.post(\"/upload/\") async def uploadfile(file: UploadFile = File(...)): return {\"filename\": file.filename}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0012",
+    "question": "How do you enable automatic Swagger UI in FastAPI?",
+    "answer": "Included by default at /docs. python from fastapi import FastAPI app = FastAPI(docsurl=\"/docs\") @app.get(\"/\") async def root(): return {\"message\": \"Visit /docs for Swagger UI\"} Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0013",
+    "question": "Write a function to implement custom exception handling.",
+    "answer": "Returns custom error responses. python from fastapi import FastAPI, HTTPException app = FastAPI() @app.get(\"/items/{itemid}\") async def readitem(itemid: int): if itemid < 0: raise HTTPException(statuscode=400, detail=\"Invalid item ID\") return {\"itemid\": itemid}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0014",
+    "question": "How do you implement dependency injection in FastAPI?",
+    "answer": "Reuses logic across endpoints. python from fastapi import FastAPI, Depends app = FastAPI() async def getdb(): return {\"db\": \"connected\"} @app.get(\"/data\") async def readdata(db=Depends(getdb)): return db",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0015",
+    "question": "Write a function to implement background tasks in FastAPI.",
+    "answer": "Runs tasks asynchronously. python from fastapi import FastAPI, BackgroundTasks app = FastAPI() async def logtask(message: str): print(f\"Logging: {message}\") @app.post(\"/log/\") async def createlog(message: str, backgroundtasks: BackgroundTasks): backgroundtasks.addtask(logtask, message) return {\"status\": \"Task queued\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0016",
+    "question": "How do you implement WebSockets in FastAPI?",
+    "answer": "Handles real-time communication. python from fastapi import FastAPI, WebSocket app = FastAPI() @app.websocket(\"/ws\") async def websocketendpoint(websocket: WebSocket): await websocket.accept() await websocket.sendtext(\"Connected\") await websocket.close()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0017",
+    "question": "Write a function to implement middleware in FastAPI.",
+    "answer": "Processes requests globally. python from fastapi import FastAPI app = FastAPI() @app.middleware(\"http\") async def addheader(request, callnext): response = await callnext(request) response.headers[\"X-Custom-Header\"] = \"Value\" return response",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0018",
+    "question": "How do you optimize FastAPI for high-concurrency?",
+    "answer": "Uses async/await and Uvicorn workers. python Terminal command uvicorn main:app --workers 4 --host 0.0.0.0 --port 8000 Routing and Endpoints Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0019",
+    "question": "What is routing in FastAPI?",
+    "answer": "Maps URLs to functions. python from fastapi import FastAPI app = FastAPI() @app.get(\"/hello\") async def hello(): return {\"message\": \"Hello, World!\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0020",
+    "question": "How do you define multiple HTTP methods for an endpoint?",
+    "answer": "Uses separate decorators. python from fastapi import FastAPI app = FastAPI() @app.get(\"/items/{itemid}\") async def readitem(itemid: int): return {\"itemid\": itemid} @app.post(\"/items/{itemid}\") async def updateitem(itemid: int): return {\"updatedid\": itemid}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0021",
+    "question": "What are path parameters in FastAPI?",
+    "answer": "Variables in URL paths. python from fastapi import FastAPI app = FastAPI() @app.get(\"/products/{productid}\") async def readproduct(productid: int): return {\"productid\": productid}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0022",
+    "question": "How do you handle optional query parameters?",
+    "answer": "Uses default values. python from fastapi import FastAPI app = FastAPI() @app.get(\"/search\") async def searchitems(q: str | None = None): return {\"query\": q}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0023",
+    "question": "How do you define a root endpoint in FastAPI?",
+    "answer": "Maps to /. python from fastapi import FastAPI app = FastAPI() @app.get(\"/\") async def root(): return {\"message\": \"Welcome to FastAPI\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0024",
+    "question": "How do you visualize endpoint usage?",
+    "answer": "Plots request counts. python import matplotlib.pyplot as plt def plotendpointusage(counts): plt.bar(counts.keys(), counts.values()) plt.savefig(\"endpointusage.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0025",
+    "question": "Write a function to create nested routes.",
+    "answer": "Organizes endpoints hierarchically. python from fastapi import FastAPI, APIRouter app = FastAPI() router = APIRouter(prefix=\"/api\") @router.get(\"/users\") async def readusers(): return {\"users\": []} app.includerouter(router)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0026",
+    "question": "How do you implement dynamic routing?",
+    "answer": "Uses path parameters for flexibility. python from fastapi import FastAPI app = FastAPI() @app.get(\"/{resource}/{id}\") async def readresource(resource: str, id: int): return {\"resource\": resource, \"id\": id}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0027",
+    "question": "Write a function to handle route-specific middleware.",
+    "answer": "Applies logic to specific routes. python from fastapi import FastAPI, Request app = FastAPI() @app.middleware(\"http\") async def logspecificroute(request: Request, callnext): if request.url.path.startswith(\"/admin\"): print(\"Admin route accessed\") return await callnext(request)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0028",
+    "question": "How do you implement route versioning?",
+    "answer": "Uses prefixes for API versions. python from fastapi import FastAPI, APIRouter app = FastAPI() v1 = APIRouter(prefix=\"/v1\") @v1.get(\"/items\") async def readitemsv1(): return {\"version\": \"v1\"} app.includerouter(v1)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0029",
+    "question": "Write a function to create tagged routes.",
+    "answer": "Groups endpoints in Swagger UI. python from fastapi import FastAPI app = FastAPI() @app.get(\"/items/\", tags=[\"Items\"]) async def readitems(): return {\"items\": []}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0030",
+    "question": "How do you handle route conflicts in FastAPI?",
+    "answer": "Prioritizes specific routes. python from fastapi import FastAPI app = FastAPI() @app.get(\"/items/{itemid}\") async def readspecificitem(itemid: int): return {\"itemid\": itemid} @app.get(\"/items/all\") async def readallitems(): return {\"items\": \"all\"} Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0031",
+    "question": "Write a function to implement dynamic route generation.",
+    "answer": "Creates routes programmatically. python from fastapi import FastAPI app = FastAPI() def adddynamicroute(path: str, response: dict): @app.get(path) async def dynamicroute(): return response adddynamicroute(\"/custom\", {\"message\": \"Dynamic route\"})",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0032",
+    "question": "How do you implement rate limiting for routes?",
+    "answer": "Uses middleware for throttling. python from fastapi import FastAPI from slowapi import Limiter, ratelimitexceededhandler from slowapi.util import getremoteaddress app = FastAPI() limiter = Limiter(keyfunc=getremoteaddress) app.state.limiter = limiter app.addexceptionhandler(429, ratelimitexceededhandler) @app.get(\"/limited\") @limiter.limit(\"5/minute\") async def limitedendpoint(): return {\"status\": \"OK\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0033",
+    "question": "Write a function to implement route-specific dependencies.",
+    "answer": "Applies custom logic to routes. python from fastapi import FastAPI, Depends app = FastAPI() async def checkrole(): return {\"role\": \"admin\"} @app.get(\"/admin\", dependencies=[Depends(checkrole)]) async def adminendpoint(): return {\"access\": \"granted\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0034",
+    "question": "How do you optimize route performance?",
+    "answer": "Minimizes middleware and dependencies. python from fastapi import FastAPI app = FastAPI() @app.get(\"/fast\") async def fastendpoint(): return {\"status\": \"optimized\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0035",
+    "question": "Write a function to monitor route performance.",
+    "answer": "Logs request latency. python import time from fastapi import FastAPI, Request app = FastAPI() @app.middleware(\"http\") async def logperformance(request: Request, callnext): start = time.time() response = await callnext(request) print(f\"Route {request.url.path} took {time.time() - start}s\") return response",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0036",
+    "question": "How do you implement route failover?",
+    "answer": "Retries failed routes. python from fastapi import FastAPI from tenacity import retry, stopafterattempt app = FastAPI() @app.get(\"/reliable\") @retry(stop=stopafterattempt(3)) async def reliableendpoint(): return {\"status\": \"OK\"} Database Integration Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0037",
+    "question": "How do you integrate FastAPI with SQLAlchemy?",
+    "answer": "Uses ORM for database operations. python from sqlalchemy import createengine, Column, Integer, String from sqlalchemy.ext.declarative import declarativebase from sqlalchemy.orm import sessionmaker Base = declarativebase() class User(Base): tablename = \"users\" id = Column(Integer, primarykey=True) name = Column(String) engine = createengine(\"sqlite:///example.db\") Base.metadata.createall(engine) Session = sessionmaker(bind=engine)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0038",
+    "question": "How do you perform CRUD operations with FastAPI?",
+    "answer": "Implements create, read, update, delete. python from fastapi import FastAPI app = FastAPI() @app.post(\"/users/\") async def createuser(name: str): session = Session() user = User(name=name) session.add(user) session.commit() return {\"name\": name}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0039",
+    "question": "What is dependency injection for database sessions?",
+    "answer": "Provides sessions to endpoints. python from fastapi import FastAPI, Depends app = FastAPI() def getdb(): session = Session() try: yield session finally: session.close() @app.get(\"/users\") async def readusers(db=Depends(getdb)): return db.query(User).all()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0040",
+    "question": "How do you connect FastAPI to PostgreSQL?",
+    "answer": "Uses SQLAlchemy with PostgreSQL URI. python engine = createengine(\"postgresql://user:password@localhost:5432/dbname\")",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0041",
+    "question": "How do you handle database migrations in FastAPI?",
+    "answer": "Uses Alembic for schema changes. python Terminal command alembic init migrations",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0042",
+    "question": "How do you visualize database query performance?",
+    "answer": "Plots query execution times. python import matplotlib.pyplot as plt def plotquerytimes(times): plt.plot(times) plt.savefig(\"querytimes.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0043",
+    "question": "Write a function to implement async database operations.",
+    "answer": "Uses async SQLAlchemy. python from sqlalchemy.ext.asyncio import createasyncengine, AsyncSession from fastapi import FastAPI app = FastAPI() engine = createasyncengine(\"sqlite+aiosqlite:///example.db\") async def getasyncdb(): async with AsyncSession(engine) as session: yield session @app.get(\"/users\") async def readusers(db=Depends(getasyncdb)): return await db.execute(\"SELECT FROM users\").fetchall()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0044",
+    "question": "How do you implement database connection pooling?",
+    "answer": "Configures SQLAlchemy for pooling. python engine = createengine(\"sqlite:///example.db\", poolsize=5, maxoverflow=10)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0045",
+    "question": "Write a function to handle database transactions.",
+    "answer": "Ensures atomic operations. python from fastapi import FastAPI, Depends app = FastAPI() @app.post(\"/users\") async def createuser(name: str, db=Depends(getdb)): try: user = User(name=name) db.add(user) db.commit() except: db.rollback() raise return {\"name\": name}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0046",
+    "question": "How do you integrate FastAPI with MongoDB?",
+    "answer": "Uses Motor for async MongoDB access. python from motor.motorasyncio import AsyncIOMotorClient from fastapi import FastAPI app = FastAPI() client = AsyncIOMotorClient(\"mongodb://localhost:27017\") db = client[\"mydb\"] @app.post(\"/docs\") async def createdoc(data: dict): result = await db[\"collection\"].insertone(data) return {\"id\": str(result.insertedid)}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0047",
+    "question": "Write a function to cache database queries.",
+    "answer": "Reduces database load. python from functools import lrucache @lrucache(maxsize=100) def cachedquery(query: str): session = Session() result = session.execute(query).fetchall() session.close() return result",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0048",
+    "question": "How do you handle database connection errors?",
+    "answer": "Implements retries. python from tenacity import retry, stopafterattempt @retry(stop=stopafterattempt(3)) def connectdb(): return createengine(\"sqlite:///example.db\") Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0049",
+    "question": "Write a function to implement sharding in FastAPI.",
+    "answer": "Distributes data across databases. python from fastapi import FastAPI app = FastAPI() engines = {i: createengine(f\"sqlite:///shard{i}.db\") for i in range(3)} def getsharddb(shardkey: int): return Session(bind=engines[shardkey % 3]) @app.get(\"/users/{userid}\") async def readuser(userid: int, db=Depends(getsharddb)): return db.query(User).filter(User.id == userid).first()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0050",
+    "question": "How do you optimize database queries in FastAPI?",
+    "answer": "Uses indexing and query planning. python from sqlalchemy import Index Index(\"idxusername\", User.name).create(bind=engine)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0051",
+    "question": "Write a function to implement database failover.",
+    "answer": "Switches to backup database. python from fastapi import FastAPI app = FastAPI() primaryengine = createengine(\"sqlite:///primary.db\") backupengine = createengine(\"sqlite:///backup.db\") def getdb(): try: return Session(bind=primaryengine) except: return Session(bind=backupengine)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0052",
+    "question": "How do you integrate FastAPI with Redis?",
+    "answer": "Uses Redis for caching. python import redis.asyncio as redis from fastapi import FastAPI app = FastAPI() r = redis.Redis(host=\"localhost\", port=6379) @app.get(\"/cache/{key}\") async def readcache(key: str): value = await r.get(key) return {\"value\": value.decode() if value else None}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0053",
+    "question": "Write a function to implement database migrations programmatically.",
+    "answer": "Automates schema updates. python from alembic.config import Config from alembic import command def runmigrations(): alembiccfg = Config(\"alembic.ini\") command.upgrade(alembiccfg, \"head\")",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0054",
+    "question": "How do you monitor database performance in FastAPI?",
+    "answer": "Logs query metrics. python from fastapi import FastAPI, Request import time app = FastAPI() @app.middleware(\"http\") async def logdbperformance(request: Request, callnext): start = time.time() response = await callnext(request) print(f\"DB query took {time.time() - start}s\") return response Serving ML Models Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0055",
+    "question": "How do you serve a machine learning model with FastAPI?",
+    "answer": "Exposes model predictions via API. python from fastapi import FastAPI import joblib app = FastAPI() model = joblib.load(\"model.pkl\") @app.post(\"/predict\") async def predict(data: list): return {\"prediction\": model.predict([data]).tolist()}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0056",
+    "question": "What is Pydantic for model input validation?",
+    "answer": "Ensures valid input data. python from pydantic import BaseModel class PredictionInput(BaseModel): features: list[float]",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0057",
+    "question": "How do you integrate FastAPI with scikit-learn?",
+    "answer": "Serves scikit-learn models. python from fastapi import FastAPI from pydantic import BaseModel import joblib app = FastAPI() model = joblib.load(\"sklearnmodel.pkl\") class Input(BaseModel): features: list[float] @app.post(\"/predict\") async def predict(input: Input): return {\"prediction\": model.predict([input.features]).tolist()}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0058",
+    "question": "How do you serve a PyTorch model with FastAPI?",
+    "answer": "Uses PyTorch for inference. python from fastapi import FastAPI import torch app = FastAPI() model = torch.load(\"pytorchmodel.pth\") model.eval() @app.post(\"/predict\") async def predict(data: list): inputtensor = torch.tensor(data) return {\"prediction\": model(inputtensor).tolist()}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0059",
+    "question": "How do you handle large model inputs?",
+    "answer": "Processes inputs in chunks. python from fastapi import FastAPI app = FastAPI() @app.post(\"/predict\") async def predict(data: list): return {\"chunked\": len(data) // 100}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0060",
+    "question": "How do you visualize model prediction performance?",
+    "answer": "Plots accuracy or latency. python import matplotlib.pyplot as plt def plotpredictionperformance(metrics): plt.plot(metrics[\"accuracy\"]) plt.savefig(\"predictionperformance.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0061",
+    "question": "Write a function to serve a TensorFlow model.",
+    "answer": "Uses TensorFlow for predictions. python from fastapi import FastAPI from pydantic import BaseModel import tensorflow as tf app = FastAPI() model = tf.keras.models.loadmodel(\"tfmodel\") class Input(BaseModel): features: list[float] @app.post(\"/predict\") async def predict(input: Input): return {\"prediction\": model.predict([input.features]).tolist()}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0062",
+    "question": "How do you implement batch predictions in FastAPI?",
+    "answer": "Processes multiple inputs. python from fastapi import FastAPI import joblib app = FastAPI() model = joblib.load(\"model.pkl\") @app.post(\"/batchpredict\") async def batchpredict(data: list[list[float]]): return {\"predictions\": model.predict(data).tolist()}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0063",
+    "question": "Write a function to integrate FastAPI with ONNX models.",
+    "answer": "Uses ONNX runtime for inference. python from fastapi import FastAPI import onnxruntime as ort app = FastAPI() session = ort.InferenceSession(\"model.onnx\") @app.post(\"/predict\") async def predict(data: list): return {\"prediction\": session.run(None, {\"input\": data})[0].tolist()}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0064",
+    "question": "How do you serve Hugging Face models with FastAPI?",
+    "answer": "Uses Transformers for NLP tasks. python from fastapi import FastAPI from transformers import pipeline app = FastAPI() nlp = pipeline(\"sentiment-analysis\") @app.post(\"/sentiment\") async def sentiment(text: str): return nlp(text)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0065",
+    "question": "Write a function to cache model predictions.",
+    "answer": "Reduces inference time. python from functools import lrucache @lrucache(maxsize=1000) def cachedpredict(data: str): model = joblib.load(\"model.pkl\") return model.predict([eval(data)]).tolist()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0066",
+    "question": "How do you handle model versioning in FastAPI?",
+    "answer": "Serves different model versions. python from fastapi import FastAPI import joblib app = FastAPI() models = {v: joblib.load(f\"modelv{v}.pkl\") for v in [1, 2]} @app.post(\"/predict/{version}\") async def predict(version: int, data: list): return {\"prediction\": models[version].predict([data]).tolist()} Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0067",
+    "question": "Write a function to implement A/B testing for models.",
+    "answer": "Compares model performance. python from fastapi import FastAPI import joblib app = FastAPI() models = {\"A\": joblib.load(\"modela.pkl\"), \"B\": joblib.load(\"modelb.pkl\")} @app.post(\"/abtest\") async def abtest(data: list): return { \"A\": models[\"A\"].predict([data]).tolist(), \"B\": models[\"B\"].predict([data]).tolist() }",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0068",
+    "question": "How do you implement model monitoring in FastAPI?",
+    "answer": "Logs prediction metrics. python from fastapi import FastAPI import joblib app = FastAPI() model = joblib.load(\"model.pkl\") @app.post(\"/predict\") async def predict(data: list): prediction = model.predict([data]).tolist() print(f\"Prediction: {prediction}\") return {\"prediction\": prediction}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0069",
+    "question": "Write a function to serve streaming model predictions.",
+    "answer": "Streams large outputs. python from fastapi import FastAPI from fastapi.responses import StreamingResponse app = FastAPI() model = joblib.load(\"model.pkl\") async def streampredictions(data: list): for chunk in data: yield str(model.predict([chunk]).tolist()) + \"\\n\" @app.post(\"/stream\") async def stream(data: list): return StreamingResponse(streampredictions(data), mediatype=\"text/plain\")",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0070",
+    "question": "How do you optimize model inference in FastAPI?",
+    "answer": "Uses batching and async. python from fastapi import FastAPI import joblib app = FastAPI() model = joblib.load(\"model.pkl\") @app.post(\"/optimizedpredict\") async def optimizedpredict(data: list[list[float]]): return {\"predictions\": model.predict(data).tolist()}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0071",
+    "question": "Write a function to integrate FastAPI with Triton Inference Server.",
+    "answer": "Serves models via Triton. python from fastapi import FastAPI from tritonclient.http import InferenceServerClient app = FastAPI() tritonclient = InferenceServerClient(\"localhost:8000\") @app.post(\"/tritonpredict\") async def tritonpredict(data: list): inputs = tritonclient.infer(\"model\", [data]) return {\"prediction\": inputs.asnumpy(\"output\").tolist()}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0072",
+    "question": "How do you implement model explainability in FastAPI?",
+    "answer": "Returns feature importance. python from fastapi import FastAPI import joblib import shap app = FastAPI() model = joblib.load(\"model.pkl\") explainer = shap.TreeExplainer(model) @app.post(\"/explain\") async def explain(data: list): shapvalues = explainer.shapvalues([data]) return {\"shapvalues\": shapvalues.tolist()} Testing and Validation Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0073",
+    "question": "How do you write unit tests for FastAPI endpoints?",
+    "answer": "Uses TestClient for testing. python from fastapi import FastAPI from fastapi.testclient import TestClient app = FastAPI() @app.get(\"/\") async def root(): return {\"message\": \"Hello\"} client = TestClient(app) def testroot(): response = client.get(\"/\") assert response.statuscode == 200 assert response.json() == {\"message\": \"Hello\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0074",
+    "question": "What is Pydantic validation testing?",
+    "answer": "Tests input validation. python from pydantic import BaseModel class Item(BaseModel): name: str def testpydanticvalidation(): try: Item(name=123) assert False except: assert True",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0075",
+    "question": "How do you test query parameters in FastAPI?",
+    "answer": "Simulates query strings. python from fastapi.testclient import TestClient from fastapi import FastAPI app = FastAPI() @app.get(\"/items\") async def readitems(q: str): return {\"q\": q} client = TestClient(app) def testquery(): response = client.get(\"/items?q=test\") assert response.json() == {\"q\": \"test\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0076",
+    "question": "How do you mock dependencies in FastAPI tests?",
+    "answer": "Overrides dependencies. python from fastapi import FastAPI, Depends from fastapi.testclient import TestClient app = FastAPI() async def getdb(): return {\"db\": \"real\"} @app.get(\"/data\") async def readdata(db=Depends(getdb)): return db client = TestClient(app) def testmockdb(): app.dependencyoverrides[getdb] = lambda: {\"db\": \"mock\"} response = client.get(\"/data\") assert response.json() == {\"db\": \"mock\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0077",
+    "question": "How do you test error handling in FastAPI?",
+    "answer": "Simulates error conditions. python from fastapi import FastAPI, HTTPException from fastapi.testclient import TestClient app = FastAPI() @app.get(\"/items/{itemid}\") async def readitem(itemid: int): if itemid < 0: raise HTTPException(statuscode=400, detail=\"Invalid ID\") return {\"itemid\": itemid} client = TestClient(app) def testerror(): response = client.get(\"/items/-1\") assert response.statuscode == 400",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0078",
+    "question": "How do you visualize test coverage?",
+    "answer": "Plots coverage metrics. python import matplotlib.pyplot as plt def plottestcoverage(coverage): plt.bar([\"Covered\", \"Uncovered\"], [coverage, 100 - coverage]) plt.savefig(\"testcoverage.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0079",
+    "question": "Write a function to test async endpoints.",
+    "answer": "Tests asynchronous routes. python from fastapi import FastAPI from fastapi.testclient import TestClient app = FastAPI() @app.get(\"/async\") async def asyncendpoint(): return {\"status\": \"async\"} client = TestClient(app) def testasync(): response = client.get(\"/async\") assert response.statuscode == 200 assert response.json() == {\"status\": \"async\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0080",
+    "question": "How do you implement integration tests for FastAPI?",
+    "answer": "Tests multiple components. python from fastapi import FastAPI, Depends from fastapi.testclient import TestClient app = FastAPI() def getdb(): return {\"db\": \"connected\"} @app.get(\"/data\") async def readdata(db=Depends(getdb)): return db client = TestClient(app) def testintegration(): response = client.get(\"/data\") assert response.json() == {\"db\": \"connected\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0081",
+    "question": "Write a function to test WebSocket endpoints.",
+    "answer": "Simulates WebSocket connections. python from fastapi import FastAPI, WebSocket from starlette.testclient import TestClient app = FastAPI() @app.websocket(\"/ws\") async def websocketendpoint(websocket: WebSocket): await websocket.accept() await websocket.sendtext(\"Test\") await websocket.close() client = TestClient(app) def testwebsocket(): with client.websocketconnect(\"/ws\") as ws: assert ws.receivetext() == \"Test\"",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0082",
+    "question": "How do you test middleware in FastAPI?",
+    "answer": "Verifies middleware behavior. python from fastapi import FastAPI, Request from fastapi.testclient import TestClient app = FastAPI() @app.middleware(\"http\") async def addheader(request: Request, callnext): response = await callnext(request) response.headers[\"X-Test\"] = \"Value\" return response @app.get(\"/\") async def root(): return {\"message\": \"Hello\"} client = TestClient(app) def testmiddleware(): response = client.get(\"/\") assert response.headers[\"X-Test\"] == \"Value\"",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0083",
+    "question": "Write a function to test database interactions.",
+    "answer": "Tests CRUD operations. python from fastapi import FastAPI, Depends from fastapi.testclient import TestClient app = FastAPI() def getdb(): return Session() @app.post(\"/users\") async def createuser(name: str, db=Depends(getdb)): user = User(name=name) db.add(user) db.commit() return {\"name\": name} client = TestClient(app) def testdb(): response = client.post(\"/users\", json={\"name\": \"Test\"}) assert response.json() == {\"name\": \"Test\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0084",
+    "question": "How do you implement load testing for FastAPI?",
+    "answer": "Simulates high traffic. python from locust import HttpUser, task class FastAPIUser(HttpUser): host = \" @task def testendpoint(self): self.client.get(\"/\") Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0085",
+    "question": "Write a function to implement end-to-end testing.",
+    "answer": "Tests full API workflows. python from fastapi import FastAPI from fastapi.testclient import TestClient app = FastAPI() @app.post(\"/items\") async def createitem(name: str): return {\"name\": name} @app.get(\"/items/{name}\") async def readitem(name: str): return {\"name\": name} client = TestClient(app) def teste2e(): createresponse = client.post(\"/items\", json={\"name\": \"Test\"}) readresponse = client.get(\"/items/Test\") assert createresponse.json() == readresponse.json()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0086",
+    "question": "How do you implement fuzz testing for FastAPI?",
+    "answer": "Tests with random inputs. python from fastapi.testclient import TestClient from hypothesis import given from hypothesis.strategies import text app = FastAPI() @app.get(\"/echo/{value}\") async def echo(value: str): return {\"value\": value} client = TestClient(app) @given(text()) def testfuzz(value): response = client.get(f\"/echo/{value}\") assert response.statuscode == 200",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0087",
+    "question": "Write a function to test API versioning.",
+    "answer": "Verifies versioned endpoints. python from fastapi import FastAPI, APIRouter from fastapi.testclient import TestClient app = FastAPI() v1 = APIRouter(prefix=\"/v1\") @v1.get(\"/items\") async def readitemsv1(): return {\"version\": \"v1\"} app.includerouter(v1) client = TestClient(app) def testversioning(): response = client.get(\"/v1/items\") assert response.json() == {\"version\": \"v1\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0088",
+    "question": "How do you test rate limiting in FastAPI?",
+    "answer": "Simulates excessive requests. python from fastapi import FastAPI from fastapi.testclient import TestClient from slowapi import Limiter app = FastAPI() limiter = Limiter(keyfunc=lambda: \"test\") app.state.limiter = limiter @app.get(\"/limited\") @limiter.limit(\"1/second\") async def limited(): return {\"status\": \"OK\"} client = TestClient(app) def testratelimit(): response1 = client.get(\"/limited\") response2 = client.get(\"/limited\") assert response2.statuscode == 429",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0089",
+    "question": "Write a function to test dependency injection.",
+    "answer": "Verifies dependency behavior. python from fastapi import FastAPI, Depends from fastapi.testclient import TestClient app = FastAPI() async def gettoken(): return \"testtoken\" @app.get(\"/secure\") async def secureendpoint(token=Depends(gettoken)): return {\"token\": token} client = TestClient(app) def testdependency(): response = client.get(\"/secure\") assert response.json() == {\"token\": \"testtoken\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0090",
+    "question": "How do you implement performance testing for FastAPI?",
+    "answer": "Measures throughput and latency. python import time from fastapi.testclient import TestClient app = FastAPI() @app.get(\"/\") async def root(): return {\"message\": \"Hello\"} client = TestClient(app) def testperformance(): start = time.time() for in range(100): client.get(\"/\") print(f\"Average latency: {(time.time() - start) / 100}s\") Deployment and Scalability Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0091",
+    "question": "How do you deploy a FastAPI application with Docker?",
+    "answer": "Containerizes the app. python Dockerfile FROM python:3.9 WORKDIR /app COPY . . RUN pip install fastapi uvicorn CMD [\"uvicorn\", \"main:app\", \"--host\", \"0.0.0.0\", \"--port\", \"80\"]",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0092",
+    "question": "How do you configure Uvicorn for production?",
+    "answer": "Sets workers and logging. python Terminal command uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4 --log-level info",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0093",
+    "question": "What is environment configuration in FastAPI?",
+    "answer": "Uses environment variables. python import os from fastapi import FastAPI app = FastAPI() @app.get(\"/\") async def root(): return {\"env\": os.getenv(\"ENV\", \"dev\")}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0094",
+    "question": "How do you enable CORS in FastAPI?",
+    "answer": "Allows cross-origin requests. python from fastapi import FastAPI from fastapi.middleware.cors import CORSMiddleware app = FastAPI() app.addmiddleware( CORSMiddleware, alloworigins=[\"\"], allowmethods=[\"\"], allowheaders=[\"\"], )",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0095",
+    "question": "How do you deploy FastAPI to AWS Lambda?",
+    "answer": "Uses Mangum for ASGI. python from fastapi import FastAPI from mangum import Mangum app = FastAPI() @app.get(\"/\") async def root(): return {\"message\": \"Hello\"} handler = Mangum(app)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0096",
+    "question": "How do you visualize deployment metrics?",
+    "answer": "Plots latency and throughput. python import matplotlib.pyplot as plt def plotdeploymentmetrics(metrics): plt.plot(metrics[\"latency\"], label=\"Latency\") plt.plot(metrics[\"throughput\"], label=\"Throughput\") plt.legend() plt.savefig(\"deploymentmetrics.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0097",
+    "question": "Write a function to deploy FastAPI with Kubernetes.",
+    "answer": "Defines Kubernetes manifests. python from kubernetes import client, config def deployfastapi(): config.loadkubeconfig() v1 = client.CoreV1Api() service = client.V1Service( metadata=client.V1ObjectMeta(name=\"fastapi-service\"), spec=client.V1ServiceSpec( selector={\"app\": \"fastapi\"}, ports=[client.V1ServicePort(port=80)] ) ) v1.createnamespacedservice(namespace=\"default\", body=service)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0098",
+    "question": "How do you implement load balancing in FastAPI?",
+    "answer": "Uses nginx or Kubernetes. python nginx.conf snippet upstream fastapi { server 127.0.0.1:8000; server 127.0.0.1:8001; }",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0099",
+    "question": "Write a function to monitor FastAPI performance.",
+    "answer": "Logs request metrics. python from fastapi import FastAPI, Request import time app = FastAPI() @app.middleware(\"http\") async def monitorperformance(request: Request, callnext): start = time.time() response = await callnext(request) print(f\"Request took {time.time() - start}s\") return response",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0100",
+    "question": "How do you implement auto-scaling for FastAPI?",
+    "answer": "Uses Kubernetes HPA. python from kubernetes import client, config def createhpa(): config.loadkubeconfig() v1 = client.AutoscalingV1Api() hpa = client.V1HorizontalPodAutoscaler( metadata=client.V1ObjectMeta(name=\"fastapi-hpa\"), spec=client.V1HorizontalPodAutoscalerSpec( scaletargetref=client.V1CrossVersionObjectReference( kind=\"Deployment\", name=\"fastapi\", apiversion=\"apps/v1\" ), minreplicas=1, maxreplicas=10, targetcpuutilizationpercentage=80 ) ) v1.createnamespacedhorizontalpodautoscaler(namespace=\"default\", body=hpa)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0101",
+    "question": "Write a function to handle graceful shutdown.",
+    "answer": "Ensures clean termination. python from fastapi import FastAPI import asyncio app = FastAPI() @app.onevent(\"shutdown\") async def shutdownevent(): print(\"Shutting down...\") await asyncio.sleep(1)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0102",
+    "question": "How do you implement health checks in FastAPI?",
+    "answer": "Exposes health endpoints. python from fastapi import FastAPI app = FastAPI() @app.get(\"/health\") async def healthcheck(): return {\"status\": \"healthy\"} Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0103",
+    "question": "Write a function to implement blue-green deployment.",
+    "answer": "Switches between app versions. python from kubernetes import client, config def bluegreendeploy(version: str): config.loadkubeconfig() v1 = client.CoreV1Api() service = client.V1Service( metadata=client.V1ObjectMeta(name=\"fastapi-service\"), spec=client.V1ServiceSpec( selector={\"app\": f\"fastapi-{version}\"}, ports=[client.V1ServicePort(port=80)] ) ) v1.replacenamespacedservice(name=\"fastapi-service\", namespace=\"default\", body=service)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0104",
+    "question": "How do you integrate FastAPI with Prometheus?",
+    "answer": "Exposes metrics for monitoring. python from fastapi import FastAPI from prometheusfastapiinstrumentator import Instrumentator app = FastAPI() Instrumentator().instrument(app).expose(app) @app.get(\"/\") async def root(): return {\"message\": \"Hello\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0105",
+    "question": "Write a function to implement canary releases.",
+    "answer": "Tests new versions gradually. python from kubernetes import client, config def canaryrelease(): config.loadkubeconfig() v1 = client.AppsV1Api() deployment = client.V1Deployment( metadata=client.V1ObjectMeta(name=\"fastapi-canary\"), spec=client.V1DeploymentSpec( replicas=1, selector=client.V1LabelSelector(matchlabels={\"app\": \"fastapi-canary\"}), template=client.V1PodTemplateSpec( metadata=client.V1ObjectMeta(labels={\"app\": \"fastapi-canary\"}), spec=client.V1PodSpec(containers=[client.V1Container(name=\"fastapi\", image=\"fastapi:latest\")]) ) ) ) v1.createnamespaceddeployment(namespace=\"default\", body=deployment)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0106",
+    "question": "How do you optimize FastAPI for low-latency?",
+    "answer": "Uses async and caching. python from fastapi import FastAPI import redis.asyncio as redis app = FastAPI() r = redis.Redis(host=\"localhost\", port=6379) @app.get(\"/cached\") async def cachedendpoint(key: str): value = await r.get(key) if value: return {\"value\": value.decode()} return {\"value\": \"computed\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0107",
+    "question": "Write a function to implement distributed tracing.",
+    "answer": "Tracks request flow. python from fastapi import FastAPI from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor app = FastAPI() FastAPIInstrumentor.instrumentapp(app) @app.get(\"/\") async def root(): return {\"message\": \"Traced\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0108",
+    "question": "How do you handle failover in FastAPI deployments?",
+    "answer": "Uses multiple replicas. python from kubernetes import client, config def ensurereplicas(): config.loadkubeconfig() v1 = client.AppsV1Api() deployment = client.V1Deployment( metadata=client.V1ObjectMeta(name=\"fastapi\"), spec=client.V1DeploymentSpec(replicas=3, selector=client.V1LabelSelector(matchlabels={\"app\": \"fastapi\"})) ) v1.createnamespaceddeployment(namespace=\"default\", body=deployment) Security Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0109",
+    "question": "How do you implement authentication in FastAPI?",
+    "answer": "Uses OAuth2 or JWT. python from fastapi import FastAPI, Depends from fastapi.security import OAuth2PasswordBearer app = FastAPI() oauth2scheme = OAuth2PasswordBearer(tokenUrl=\"token\") @app.get(\"/secure\") async def secureendpoint(token=Depends(oauth2scheme)): return {\"token\": token}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0110",
+    "question": "What is input validation in FastAPI?",
+    "answer": "Uses Pydantic to validate data. python from pydantic import BaseModel class User(BaseModel): username: str age: int",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0111",
+    "question": "How do you enable HTTPS in FastAPI?",
+    "answer": "Configures SSL with Uvicorn. python Terminal command uvicorn main:app --ssl-keyfile=key.pem --ssl-certfile=cert.pem",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0112",
+    "question": "How do you prevent SQL injection in FastAPI?",
+    "answer": "Uses parameterized queries. python from sqlalchemy.orm import Session def getuser(db: Session, userid: int): return db.query(User).filter(User.id == userid).first()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0113",
+    "question": "How do you secure sensitive environment variables?",
+    "answer": "Uses python-dotenv. python from dotenv import loaddotenv import os loaddotenv() APIKEY = os.getenv(\"APIKEY\")",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0114",
+    "question": "How do you visualize security metrics?",
+    "answer": "Plots authentication failures. python import matplotlib.pyplot as plt def plotsecuritymetrics(failures): plt.plot(failures) plt.savefig(\"securitymetrics.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0115",
+    "question": "Write a function to implement JWT authentication.",
+    "answer": "Verifies JWT tokens. python from fastapi import FastAPI, Depends, HTTPException from jose import JWTError, jwt app = FastAPI() SECRETKEY = \"secret\" async def verifytoken(token: str = Depends(OAuth2PasswordBearer(tokenUrl=\"token\"))): try: payload = jwt.decode(token, SECRETKEY, algorithms=[\"HS256\"]) return payload except JWTError: raise HTTPException(statuscode=401, detail=\"Invalid token\") @app.get(\"/secure\") async def secureendpoint(payload=Depends(verifytoken)): return {\"user\": payload}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0116",
+    "question": "How do you implement role-based access control?",
+    "answer": "Checks user roles. python from fastapi import FastAPI, Depends, HTTPException app = FastAPI() async def checkrole(token: str = Depends(OAuth2PasswordBearer(tokenUrl=\"token\"))): if token != \"admin\": raise HTTPException(statuscode=403, detail=\"Forbidden\") return token @app.get(\"/admin\") async def adminendpoint(token=Depends(checkrole)): return {\"access\": \"admin\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0117",
+    "question": "Write a function to prevent CSRF attacks.",
+    "answer": "Uses CSRF tokens. python from fastapi import FastAPI, Request, HTTPException app = FastAPI() @app.post(\"/action\") async def action(request: Request): token = request.headers.get(\"X-CSRF-Token\") if not token or token != \"validtoken\": raise HTTPException(statuscode=403, detail=\"Invalid CSRF token\") return {\"status\": \"OK\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0118",
+    "question": "How do you implement rate limiting for security?",
+    "answer": "Limits request frequency. python from fastapi import FastAPI from slowapi import Limiter app = FastAPI() limiter = Limiter(keyfunc=lambda: \"user\") app.state.limiter = limiter @app.get(\"/secure\") @limiter.limit(\"10/minute\") async def secureendpoint(): return {\"status\": \"OK\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0119",
+    "question": "Write a function to log security events.",
+    "answer": "Tracks unauthorized access. python import logging from fastapi import FastAPI, HTTPException app = FastAPI() logging.basicConfig(filename=\"security.log\", level=logging.INFO) @app.get(\"/secure\") async def secureendpoint(): try: raise HTTPException(statuscode=401, detail=\"Unauthorized\") except HTTPException as e: logging.error(f\"Security event: {e.detail}\") raise",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0120",
+    "question": "How do you secure WebSocket endpoints?",
+    "answer": "Validates tokens. python from fastapi import FastAPI, WebSocket, HTTPException app = FastAPI() @app.websocket(\"/ws\") async def websocketendpoint(websocket: WebSocket): await websocket.accept() token = await websocket.receivetext() if token != \"validtoken\": await websocket.close(code=1008) return await websocket.sendtext(\"Authenticated\") Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0121",
+    "question": "Write a function to implement API key authentication.",
+    "answer": "Verifies API keys. python from fastapi import FastAPI, Depends, HTTPException from fastapi.security import APIKeyHeader app = FastAPI() apikeyheader = APIKeyHeader(name=\"X-API-Key\") async def verifyapikey(apikey: str = Depends(apikeyheader)): if apikey != \"secretkey\": raise HTTPException(statuscode=401, detail=\"Invalid API key\") return apikey @app.get(\"/secure\") async def secureendpoint(apikey=Depends(verifyapikey)): return {\"status\": \"Authenticated\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0122",
+    "question": "How do you implement encryption for sensitive data?",
+    "answer": "Uses Fernet for encryption. python from cryptography.fernet import Fernet key = Fernet.generatekey() f = Fernet(key) def encryptdata(data: str): return f.encrypt(data.encode()).decode()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0123",
+    "question": "Write a function to detect injection attacks.",
+    "answer": "Sanitizes inputs. python from fastapi import FastAPI, HTTPException app = FastAPI() def sanitizeinput(input: str): if any(c in input for c in [\";\", \"--\", \"<script>\"]): raise HTTPException(statuscode=400, detail=\"Invalid input\") return input @app.get(\"/search\") async def search(q: str): return {\"query\": sanitizeinput(q)}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0124",
+    "question": "How do you implement audit logging for security?",
+    "answer": "Logs all requests. python from fastapi import FastAPI, Request import logging app = FastAPI() logging.basicConfig(filename=\"audit.log\", level=logging.INFO) @app.middleware(\"http\") async def auditlog(request: Request, callnext): logging.info(f\"Request: {request.method} {request.url}\") return await callnext(request)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0125",
+    "question": "Write a function to implement secure file uploads.",
+    "answer": "Validates file types. python from fastapi import FastAPI, File, UploadFile, HTTPException app = FastAPI() @app.post(\"/upload\") async def uploadfile(file: UploadFile = File(...)): if file.contenttype not in [\"image/png\", \"image/jpeg\"]: raise HTTPException(statuscode=400, detail=\"Invalid file type\") return {\"filename\": file.filename}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0126",
+    "question": "How do you integrate FastAPI with OAuth2 providers?",
+    "answer": "Uses Authlib for OAuth2. python from fastapi import FastAPI from authlib.integrations.starletteclient import OAuth app = FastAPI() oauth = OAuth() oauth.register( name=\"google\", clientid=\"clientid\", clientsecret=\"clientsecret\", authorizeurl=\" tokenurl=\" ) @app.get(\"/login\") async def login(): return {\"url\": oauth.google.createauthorizeurl()} Integration with Other Tools Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0127",
+    "question": "How do you integrate FastAPI with Celery?",
+    "answer": "Runs async tasks. python from fastapi import FastAPI from celery import Celery app = FastAPI() celeryapp = Celery(\"tasks\", broker=\"redis://localhost:6379\") @celeryapp.task def processtask(data: str): return f\"Processed: {data}\" @app.post(\"/task\") async def createtask(data: str): processtask.delay(data) return {\"status\": \"Task queued\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0128",
+    "question": "How do you integrate FastAPI with Kafka?",
+    "answer": "Streams data via Kafka. python from fastapi import FastAPI from aiokafka import AIOKafkaProducer app = FastAPI() producer = AIOKafkaProducer(bootstrapservers=\"localhost:9092\") @app.onevent(\"startup\") async def startup(): await producer.start() @app.post(\"/publish\") async def publish(message: str): await producer.sendandwait(\"topic\", message.encode()) return {\"status\": \"Published\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0129",
+    "question": "How do you visualize integration metrics?",
+    "answer": "Plots task or cache metrics. python import matplotlib.pyplot as plt def plotintegrationmetrics(metrics): plt.plot(metrics[\"cachehits\"], label=\"Cache Hits\") plt.plot(metrics[\"taskcompletion\"], label=\"Tasks\") plt.legend() plt.savefig(\"integrationmetrics.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0130",
+    "question": "Write a function to integrate FastAPI with Airflow.",
+    "answer": "Triggers Airflow DAGs. python from fastapi import FastAPI from airflow.api.client.localclient import Client app = FastAPI() client = Client() @app.post(\"/triggerdag\") async def triggerdag(dagid: str): client.triggerdag(dagid=dagid) return {\"status\": f\"DAG {dagid} triggered\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0131",
+    "question": "How do you integrate FastAPI with Elasticsearch?",
+    "answer": "Queries Elasticsearch indices. python from fastapi import FastAPI from elasticsearch import AsyncElasticsearch app = FastAPI() es = AsyncElasticsearch([\" @app.get(\"/search\") async def search(q: str): result = await es.search(index=\"myindex\", query={\"match\": {\"text\": q}}) return result[\"hits\"][\"hits\"]",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0132",
+    "question": "Write a function to integrate FastAPI with RabbitMQ.",
+    "answer": "Publishes messages. python from fastapi import FastAPI import aiopika app = FastAPI() @app.onevent(\"startup\") async def connectrabbit(): global connection connection = await aiopika.connectrobust(\"amqp://guest:guest@localhost/\") @app.post(\"/publish\") async def publish(message: str): async with connection: channel = await connection.channel() await channel.defaultexchange.publish( aiopika.Message(message.encode()), routingkey=\"queue\" ) return {\"status\": \"Published\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0133",
+    "question": "How do you integrate FastAPI with GraphQL?",
+    "answer": "Uses Ariadne for GraphQL APIs. python from fastapi import FastAPI from ariadne import QueryType, gql, makeexecutableschema from ariadne.asgi import GraphQL app = FastAPI() typedefs = gql(\"\"\" type Query { hello: String! } \"\"\") query = QueryType() @query.field(\"hello\") def resolvehello(, info): return \"Hello, GraphQL!\" schema = makeexecutableschema(typedefs, query) app.mount(\"/graphql\", GraphQL(schema))",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0134",
+    "question": "Write a function to integrate FastAPI with MLflow.",
+    "answer": "Tracks ML experiments. python from fastapi import FastAPI import mlflow app = FastAPI() @app.post(\"/logexperiment\") async def logexperiment(params: dict, metrics: dict): with mlflow.startrun(): mlflow.logparams(params) mlflow.logmetrics(metrics) return {\"status\": \"Logged\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0135",
+    "question": "How do you integrate FastAPI with LangChain?",
+    "answer": "Serves LLM prompts. python from fastapi import FastAPI from langchain.prompts import PromptTemplate app = FastAPI() prompt = PromptTemplate.fromtemplate(\"Task: {task}\") @app.post(\"/prompt\") async def createprompt(task: str): return {\"prompt\": prompt.format(task=task)} Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0136",
+    "question": "Write a function to integrate FastAPI with Apache Spark.",
+    "answer": "Processes big data. python from fastapi import FastAPI from pyspark.sql import SparkSession app = FastAPI() spark = SparkSession.builder.appName(\"FastAPI-Spark\").getOrCreate() @app.post(\"/process\") async def processdata(data: list): df = spark.createDataFrame(data) result = df.groupBy(\"category\").count().collect() return {\"result\": result}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0137",
+    "question": "How do you integrate FastAPI with Kubernetes Ingress?",
+    "answer": "Routes external traffic. python from kubernetes import client, config def createingress(): config.loadkubeconfig() v1 = client.NetworkingV1Api() ingress = client.V1Ingress( metadata=client.V1ObjectMeta(name=\"fastapi-ingress\"), spec=client.V1IngressSpec( rules=[client.V1IngressRule( host=\"api.example.com\", http=client.V1HTTPIngressRuleValue( paths=[client.V1HTTPIngressPath( path=\"/\", pathtype=\"Prefix\", backend=client.V1IngressBackend( service=client.V1IngressServiceBackend( name=\"fastapi-service\", port=client.V1ServiceBackendPort(number=80) ) ) )] ) )] ) ) v1.createnamespacedingress(namespace=\"default\", body=ingress)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0138",
+    "question": "Write a function to integrate FastAPI with AWS SQS.",
+    "answer": "Processes queue messages. python from fastapi import FastAPI import boto3 app = FastAPI() sqs = boto3.client(\"sqs\", regionname=\"us-east-1\") @app.post(\"/queue\") async def sendmessage(message: str): sqs.sendmessage(QueueUrl=\"queueurl\", MessageBody=message) return {\"status\": \"Message sent\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0139",
+    "question": "How do you integrate FastAPI with TensorFlow Serving?",
+    "answer": "Serves TensorFlow models. python from fastapi import FastAPI import requests app = FastAPI() @app.post(\"/tfpredict\") async def tfpredict(data: list): response = requests.post(\" json={\"instances\": [data]}) return response.json()",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0140",
+    "question": "Write a function to integrate FastAPI with Dask.",
+    "answer": "Handles distributed computing. python from fastapi import FastAPI from dask.distributed import Client app = FastAPI() daskclient = Client(\"tcp://scheduler:8786\") @app.post(\"/compute\") async def compute(data: list): result = daskclient.submit(sum, data).result() return {\"result\": result}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0141",
+    "question": "How do you integrate FastAPI with OpenTelemetry?",
+    "answer": "Traces API requests. python from fastapi import FastAPI from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor app = FastAPI() FastAPIInstrumentor.instrumentapp(app) @app.get(\"/\") async def root(): return {\"message\": \"Traced\"} Performance Optimization Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0142",
+    "question": "How do you optimize FastAPI response times?",
+    "answer": "Uses async endpoints. python from fastapi import FastAPI app = FastAPI() @app.get(\"/fast\") async def fastendpoint(): return {\"status\": \"OK\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0143",
+    "question": "What is connection pooling in FastAPI?",
+    "answer": "Reuses database connections. python engine = createengine(\"sqlite:///example.db\", poolsize=5, maxoverflow=10)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0144",
+    "question": "How do you cache API responses?",
+    "answer": "Uses Redis for caching. python import redis.asyncio as redis from fastapi import FastAPI app = FastAPI() r = redis.Redis(host=\"localhost\", port=6379) @app.get(\"/cached\") async def cachedendpoint(): value = await r.get(\"key\") if value: return {\"value\": value.decode()} return {\"value\": \"computed\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0145",
+    "question": "How do you reduce memory usage in FastAPI?",
+    "answer": "Clears unused objects. python import gc from fastapi import FastAPI app = FastAPI() @app.get(\"/lowmemory\") async def lowmemoryendpoint(): gc.collect() return {\"status\": \"OK\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0146",
+    "question": "How do you profile FastAPI performance?",
+    "answer": "Uses cProfile for analysis. python import cProfile from fastapi.testclient import TestClient app = FastAPI() client = TestClient(app) cProfile.run('client.get(\"/\")', \"fastapiprofile.prof\")",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0147",
+    "question": "How do you visualize performance metrics?",
+    "answer": "Plots latency and memory usage. python import matplotlib.pyplot as plt def plotperformancemetrics(metrics): plt.plot(metrics[\"latency\"], label=\"Latency\") plt.plot(metrics[\"memory\"], label=\"Memory\") plt.legend() plt.savefig(\"performancemetrics.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0148",
+    "question": "Write a function to implement response compression.",
+    "answer": "Reduces response size. python from fastapi import FastAPI from fastapi.middleware.gzip import GZipMiddleware app = FastAPI() app.addmiddleware(GZipMiddleware, minimumsize=1000) @app.get(\"/large\") async def largeresponse(): return {\"data\": \"x\" 10000}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0149",
+    "question": "How do you implement batch processing in FastAPI?",
+    "answer": "Processes multiple requests. python from fastapi import FastAPI app = FastAPI() @app.post(\"/batch\") async def batchprocess(data: list[dict]): return [{\"processed\": item} for item in data]",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0150",
+    "question": "Write a function to optimize database queries.",
+    "answer": "Uses indexing. python from sqlalchemy import Index def optimizedb(): Index(\"idxusername\", User.name).create(bind=engine)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0151",
+    "question": "How do you implement async task offloading?",
+    "answer": "Uses Celery for tasks. python from fastapi import FastAPI from celery import Celery app = FastAPI() celeryapp = Celery(\"tasks\", broker=\"redis://localhost:6379\") @celeryapp.task def heavytask(data: str): return f\"Processed: {data}\" @app.post(\"/offload\") async def offloadtask(data: str): heavytask.delay(data) return {\"status\": \"Task offloaded\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0152",
+    "question": "Write a function to monitor memory usage.",
+    "answer": "Tracks memory consumption. python import psutil from fastapi import FastAPI app = FastAPI() @app.get(\"/memory\") async def memoryusage(): return {\"memory\": psutil.Process().memoryinfo().rss / 1024 2}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0153",
+    "question": "How do you implement connection timeouts?",
+    "answer": "Limits request duration. python from fastapi import FastAPI app = FastAPI() @app.get(\"/timeout\") async def timeoutendpoint(): import asyncio await asyncio.sleep(1) return {\"status\": \"OK\"} Uvicorn config: --timeout-keep-alive 5 Advanced",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0154",
+    "question": "Write a function to implement request batching.",
+    "answer": "Groups requests for efficiency. python from fastapi import FastAPI app = FastAPI() async def batchprocess(data: list): return [f\"Processed: {item}\" for item in data] @app.post(\"/batch\") async def batchendpoint(data: list[str]): return await batchprocess(data)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0155",
+    "question": "How do you optimize FastAPI for high-throughput?",
+    "answer": "Uses multiple workers and async. python Terminal command uvicorn main:app --workers 8 --host 0.0.0.0 --port 8000",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0156",
+    "question": "Write a function to implement distributed caching.",
+    "answer": "Uses Redis Cluster. python from fastapi import FastAPI from redis.asyncio import Redis app = FastAPI() r = Redis.fromurl(\"redis://localhost:6379\") @app.get(\"/distcache/{key}\") async def distributedcache(key: str): value = await r.get(key) return {\"value\": value.decode() if value else None}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0157",
+    "question": "How do you implement request deduplication?",
+    "answer": "Avoids duplicate processing. python from fastapi import FastAPI import redis.asyncio as redis app = FastAPI() r = redis.Redis(host=\"localhost\", port=6379) @app.post(\"/dedup\") async def deduprequest(data: str): if await r.setnx(data, 1): return {\"status\": \"Processed\"} return {\"status\": \"Duplicate\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0158",
+    "question": "Write a function to implement circuit breakers.",
+    "answer": "Prevents cascading failures. python from pybreaker import CircuitBreaker from fastapi import FastAPI app = FastAPI() breaker = CircuitBreaker(failmax=3, resettimeout=60) @app.get(\"/reliable\") @breaker async def reliableendpoint(): return {\"status\": \"OK\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0159",
+    "question": "How do you implement performance benchmarking?",
+    "answer": "Measures endpoint performance. python import time from fastapi.testclient import TestClient app = FastAPI() client = TestClient(app) def benchmarkendpoint(): start = time.time() for in range(1000): client.get(\"/\") return {\"avglatency\": (time.time() - start) / 1000} Monitoring and Logging Basic",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0160",
+    "question": "How do you implement logging in FastAPI?",
+    "answer": "Uses Python logging. python import logging from fastapi import FastAPI app = FastAPI() logging.basicConfig(filename=\"app.log\", level=logging.INFO) @app.get(\"/\") async def root(): logging.info(\"Root endpoint accessed\") return {\"message\": \"Hello\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0161",
+    "question": "How do you expose metrics in FastAPI?",
+    "answer": "Uses Prometheus. python from fastapi import FastAPI from prometheusfastapiinstrumentator import Instrumentator app = FastAPI() Instrumentator().instrument(app).expose(app) @app.get(\"/\") async def root(): return {\"message\": \"Monitored\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0162",
+    "question": "How do you implement health checks?",
+    "answer": "Monitors app status. python from fastapi import FastAPI app = FastAPI() @app.get(\"/health\") async def healthcheck(): return {\"status\": \"healthy\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0163",
+    "question": "How do you log request details?",
+    "answer": "Captures request metadata. python from fastapi import FastAPI, Request import logging app = FastAPI() logging.basicConfig(filename=\"requests.log\", level=logging.INFO) @app.middleware(\"http\") async def logrequests(request: Request, callnext): logging.info(f\"{request.method} {request.url}\") return await callnext(request)",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0164",
+    "question": "How do you monitor API uptime?",
+    "answer": "Tracks availability. python from fastapi import FastAPI app = FastAPI() @app.get(\"/uptime\") async def uptime(): return {\"status\": \"up\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0165",
+    "question": "How do you visualize monitoring metrics?",
+    "answer": "Plots request counts. python import matplotlib.pyplot as plt def plotmonitoringmetrics(metrics): plt.plot(metrics[\"requests\"], label=\"Requests\") plt.legend() plt.savefig(\"monitoringmetrics.png\") Intermediate",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0166",
+    "question": "Write a function to implement distributed logging.",
+    "answer": "Sends logs to a central server. python import logging.handlers from fastapi import FastAPI app = FastAPI() handler = logging.handlers.SocketHandler(\"log-server\", 9090) logging.getLogger().addHandler(handler) @app.get(\"/\") async def root(): logging.info(\"Distributed log\") return {\"message\": \"Logged\"}",
+    "topic": "FastAPI"
+  },
+  {
+    "id": "FastAPI_0167",
+    "question": "How do you integrate FastAPI with Grafana?",
+    "answer": "Visualizes Prometheus metrics. python from fastapi import FastAPI from prometheusfastapiinstrumentator import Instrumentator app = FastAPI() Instrumentator().instrument(app).expose(app) @app.get(\"/\") async def root(): return {\"message\": \"Monitored\"} Configure Grafana to scrape /metrics",
+    "topic": "FastAPI"
+  }
+]

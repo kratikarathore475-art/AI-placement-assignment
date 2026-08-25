@@ -1,0 +1,122 @@
+[
+  {
+    "id": "Git_GitHub_0001",
+    "question": "What is Git and how is it different from GitHub?",
+    "answer": "Git is a distributed version control system that runs locally and tracks changes to files over time. GitHub is a cloud-based hosting platform for Git repositories that adds collaboration features like pull requests, issues, code review, and CI/CD via GitHub Actions. Git works fine without GitHub; GitHub cannot exist without Git.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0002",
+    "question": "What is the difference between git fetch and git pull?",
+    "answer": "git fetch downloads commits, files, and refs from a remote repository into your local repo's remote-tracking branches without merging them into your working branch. git pull does a fetch followed immediately by a merge (or rebase, with --rebase) into your current branch. fetch is safer for reviewing changes before integrating them.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0003",
+    "question": "Explain the difference between git merge and git rebase.",
+    "answer": "git merge combines two branches by creating a new merge commit that has two parents, preserving the full history as it happened. git rebase replays your branch's commits on top of another branch, producing a linear history without a merge commit. Merge is non-destructive and safe for shared branches; rebase rewrites commit history and should be avoided on branches others are working from.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0004",
+    "question": "What is a merge conflict and how do you resolve it?",
+    "answer": "A merge conflict occurs when Git cannot automatically reconcile changes because the same lines were modified differently in two branches. Git marks the conflicting sections in the file with <<<<<<<, =======, and >>>>>>> markers. To resolve it, you manually edit the file to keep the correct content, remove the conflict markers, stage the file with git add, and complete the merge with git commit (or git rebase --continue during a rebase).",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0005",
+    "question": "What is the difference between git reset, git revert, and git checkout for commits?",
+    "answer": "git reset moves the branch pointer to a previous commit, optionally altering the staging area and working directory (--soft, --mixed, --hard); it rewrites history and is unsafe on shared branches. git revert creates a new commit that undoes the changes of a previous commit, preserving history, making it safe for shared branches. git checkout (or the newer git switch/git restore) is used to move between branches or restore files without altering commit history.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0006",
+    "question": "What is a detached HEAD state in Git?",
+    "answer": "HEAD normally points to a branch, which points to a commit. A detached HEAD happens when HEAD points directly to a commit instead of a branch (e.g., after checking out a specific commit hash or a tag). Any new commits made in this state aren't attached to a branch and can be lost after switching branches unless you create a new branch to save them.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0007",
+    "question": "What is the purpose of a .gitignore file?",
+    "answer": "A .gitignore file tells Git which files or directories to exclude from version control, such as build artifacts, dependency folders (nodemodules, venv), environment files with secrets, and OS/IDE-specific files. This keeps the repository clean and prevents accidentally committing sensitive or generated files.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0008",
+    "question": "What is the difference between git stash and committing changes?",
+    "answer": "git stash temporarily shelves uncommitted changes (both staged and unstaged) so you can switch branches or pull updates with a clean working directory, without creating a permanent commit. You can later reapply the stashed changes with git stash pop or git stash apply. Committing, in contrast, permanently records the changes in the repository history.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0009",
+    "question": "How does git cherry-pick work?",
+    "answer": "git cherry-pick applies the changes introduced by a specific commit from one branch onto another branch, creating a new commit with those changes. It's useful for applying a bug fix from one branch (e.g., a hotfix) to another without merging the entire branch history.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0010",
+    "question": "What is the difference between a fork and a clone in GitHub?",
+    "answer": "A fork creates a full copy of a repository under your own GitHub account on the server side, letting you make changes independently and propose them back via a pull request — commonly used for contributing to projects you don't have write access to. A clone downloads a copy of a repository (yours or anyone's) to your local machine so you can work on it; it doesn't create a separate copy on GitHub.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0011",
+    "question": "What is a pull request and what is its typical workflow?",
+    "answer": "A pull request (PR) is a GitHub feature for proposing changes from one branch (often on a fork) into another. The typical workflow: create a feature branch, commit changes, push the branch, open a PR describing the changes, have reviewers comment and request changes, address feedback with more commits, and finally merge the PR into the target branch once approved.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0012",
+    "question": "What are GitHub Actions?",
+    "answer": "GitHub Actions is GitHub's built-in CI/CD and automation platform. Workflows are defined in YAML files under .github/workflows/ and are triggered by events like pushes, pull requests, or schedules. They can run tests, build artifacts, deploy applications, or perform any scripted automation using pre-built or custom actions.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0013",
+    "question": "What is the difference between git branch -d and git branch -D?",
+    "answer": "git branch -d (delete) safely deletes a branch only if it has already been fully merged into its upstream branch, preventing accidental loss of unmerged work. git branch -D (force delete) deletes the branch regardless of its merge status, which can permanently lose unmerged commits.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0014",
+    "question": "What is a Git tag and how is it different from a branch?",
+    "answer": "A tag is a fixed, named pointer to a specific commit, typically used to mark release points (e.g., v1.0.0). Unlike a branch, a tag doesn't move as new commits are added — it stays pinned to that one commit. Annotated tags also store metadata like the tagger, date, and message.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0015",
+    "question": "What does git rebase -i (interactive rebase) let you do?",
+    "answer": "Interactive rebase lets you rewrite commit history before it's shared: reordering commits, squashing multiple commits into one, editing commit messages, splitting commits, or dropping commits entirely. It's commonly used to clean up a feature branch's history before opening a pull request.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0016",
+    "question": "What is the difference between origin and upstream in Git?",
+    "answer": "origin is the default name Git gives to the remote repository you cloned from (usually your fork). upstream is a conventional name for the original repository you forked from, added manually so you can pull in the latest changes from the main project into your fork.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0017",
+    "question": "How do you undo the last commit without losing your changes?",
+    "answer": "Run git reset --soft HEAD~1. This moves the branch pointer back one commit while keeping all changes staged in the working directory, so you can edit and recommit. Using --mixed instead keeps changes but unstages them; --hard would discard the changes entirely, which is generally not what you want here.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0018",
+    "question": "What is Git LFS (Large File Storage) and why is it used?",
+    "answer": "Git LFS is an extension that replaces large files (like datasets, videos, or binaries) in a repository with small text pointers, while storing the actual file content on a separate server. This keeps the core Git repository fast and lightweight, since Git itself isn't optimized for tracking large binary file history.",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0019",
+    "question": "What is the difference between a GitHub Issue and a Pull Request?",
+    "answer": "An Issue is used to track bugs, feature requests, tasks, or discussions — it doesn't contain code changes. A Pull Request proposes an actual set of code changes (a diff between branches) for review and merging. Issues are often linked to PRs that resolve them (e.g., using 'Fixes 123' in a PR description).",
+    "topic": "Git_GitHub"
+  },
+  {
+    "id": "Git_GitHub_0020",
+    "question": "What is a GitHub Actions workflow trigger, and can you name a few common ones?",
+    "answer": "A trigger (defined under the 'on:' key in a workflow YAML file) specifies what event starts a workflow run. Common triggers include push (code pushed to a branch), pullrequest (PR opened/updated), schedule (cron-based, for periodic runs), and workflowdispatch (manual trigger from the GitHub UI).",
+    "topic": "Git_GitHub"
+  }
+]
